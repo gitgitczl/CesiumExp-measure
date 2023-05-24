@@ -1,6 +1,5 @@
 # Cesium气泡窗插件
 ## [在线体验](http://mapgl.com/shareCode/#/Measure)
-***
 ps：如果可以的话，希望大家能给我个star，好让我有更新下去的动力；
 ***
 实现原理：
@@ -27,7 +26,7 @@ ps：如果可以的话，希望大家能给我个star，好让我有更新下�
   let mg = new MeasureGroundDistance(viewer);
   mg.starte();
 ```
+
 ***
 <iframe src="http://mapgl.com/introduce/" width="100%" height="100%" frameborder="no" style="padding:0"></iframe>
-***
 
