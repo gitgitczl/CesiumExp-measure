@@ -1,54 +1,33 @@
 # Cesium气泡窗插件
-## [在线api文档说明](http://mapgl.com/3dapi/Prompt.html)
-## [在线体验地址](http://mapgl.com/shareCode/#/PopupTooltip?downUrl=)
-## [更多案例地址](http://mapgl.com/shareCode/)
-## [免费gis数据](http://mapgl.com/shareData/)
+## [在线体验](http://mapgl.com/shareCode/#/Measure)
 ***
 ps：如果可以的话，希望大家能给我个star，好让我有更新下去的动力；
 ***
 实现原理：
-Cesium和我们平时常见的leaflet、ol以及arcgis api是不一样的，其没有内置的气泡窗，那么就得靠我们手写气泡窗来实现了。
-本插件样式是参考了leaflet来写的。
-气泡窗目前分两种：
-*    1、固定位置气泡窗，即气泡窗的位置固定在地图的某一个点上，不会随鼠标移动。
-*    2、可移动气泡窗，通过给定像素坐标和三维世界坐标来进行气泡窗坐标的设置。
-主要的点就是做了：像素坐标和三维世界坐标的相互转换。
+其中距离量算的原理是用了Cartesian3提供的distance方法进行了计算；  
+面积计算是使用了开源的turf库来进行计算的，此处我只做了空间面积计算，并没有做贴地面积计算，贴地面积计算的原理和空间面积计算一样，只不过贴地时对面做了微分；  
+方位角使用了矩阵计算了正北方向的夹角；  
+坐标是一个普通的Cartesian3转经纬度；  
 
 ***
-两种调用方法：<br/>
-1、固定位置气泡窗：
+两种调用方法：  
+此处调用和我另一个标绘组件的方法类型，一种是使用MeasureTool这个工具类进行统一控制（推荐使用），另一种是直接new 所需的标绘类。
+1、直接通过Tool工具类进行控制：
 ```
-prompt1 = new Prompt(viewer, {
-    type: 2,
-    content: "我是定点提示框",
-    position: [117, 32, 100], // 支持多种形式传参 cartesian3 || array || object
-    close: function () {
-      alert("easy3d--三维可视化类库！");
-      return false
-    } // 点击关闭按钮的回调函数
-  });
+ measureTool = new MeasureTool(viewer);
+ // 通过on可以实现状态监听
+ measureTool.on("endCreate",function(measureObj){
+  // 标绘结束的回调
+  ......
+ });
 ```
 
-2、鼠标移动气泡窗：
+2、直接new 具体标绘类型，如下进行贴地距离测量：
 ```
-  movePrompt = new Prompt(viewer, {
-    type: 1,
-    content: "我是移动提示框"
-  })
-    // 设定鼠标位置
-   movePrompt.update({
-      x: evt.clientX,
-      y: evt.clientY
-    })
+  let mg = new MeasureGroundDistance(viewer);
+  mg.starte();
 ```
 ***
-更多案例地址（我们持续更新）：
-- 标绘插件：     
-      github:  [https://github.com/gitgitczl/cesiumExp-plot](https://github.com/gitgitczl/cesiumExp-plot)  
-      码云：    [https://gitee.com/caozl1132/cesiumExp-plot](https://gitee.com/caozl1132/cesiumExp-plot)  
-- 气泡窗插件：   
-      github： [https://github.com/gitgitczl/cesiumExp-prompt](https://github.com/gitgitczl/cesiumExp-prompt)  
-      码云：    [https://github.com/gitgitczl/cesiumExp-prompt](https://gitee.com/caozl1132/cesiumExp-prompt)  
+<iframe src="http://mapgl.com/introduce/" width="100%" height="100%" frameborder="no" style="padding:0"></iframe>
 ***
-交流群：
-    ![QQ群（606645466）](http://mapgl.com/data/images/qqqun.png)
+
