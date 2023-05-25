@@ -1,4 +1,4 @@
-# Cesium气泡窗插件
+# Cesium量算插件
 ## [在线体验](http://mapgl.com/shareCode/#/Measure)
 ps：如果可以的话，希望大家能给我个star，好让我有更新下去的动力；
 ***
